@@ -1,0 +1,14 @@
+{
+   "description": "只是想更方便的使用教务处那套系统",
+   "manifest_version": 2,
+   "minimum_chrome_version": "17",
+   "name": "暨南大学教务处助手",
+   "permissions": [ "*://*/", "tabs"],
+   "version": "1.0.0",
+   "content_scripts" : [
+      {
+         "matches": ["http://jwc.jnu.edu.cn/web/Login.aspx"],
+         "js": ["jquery.min.js", "verifycode.js"]
+      }
+   ]
+}
