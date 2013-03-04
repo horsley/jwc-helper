@@ -1,8 +1,0 @@
-<IfModule mod_rewrite.c>
-RewriteEngine On
-#RewriteBase /
-
-# for my public key 20130107
-RewriteRule ^verifycode$ vcode.php [L]
-
-</IfModule>
