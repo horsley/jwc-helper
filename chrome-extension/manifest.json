@@ -5,10 +5,30 @@
    "name": "暨南大学教务处助手",
    "permissions": [ "*://*/", "tabs"],
    "version": "1.0.0",
-   "content_scripts" : [
-      {
-         "matches": ["http://jwc.jnu.edu.cn/web/Login.aspx"],
-         "js": ["jquery.min.js", "verifycode.js"]
-      }
-   ]
+    "icons":
+    {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "content_scripts" : [
+       {
+           "matches": ["http://jwc.jnu.edu.cn/web/login.aspx", "http://jwc.jnu.edu.cn/web/Login.aspx"],
+           "js": ["jquery.min.js", "verifycode.js"]
+       },
+       {
+           "matches": ["http://jwc.jnu.edu.cn/web/Secure/PaiKeXuanKe/wfrm_xk_StudentKcb.aspx"],
+           "js": ["jquery.min.js", "schedule.js"],
+           "all_frames": true
+       },
+       {
+           "matches": ["http://jwc.jnu.edu.cn/web/Secure/PaiKeXuanKe/wfrm_XK_XuanKe.aspx"],
+           "js": ["jquery.min.js", "autoreg.js"],
+           "all_frames": true
+       }
+   ],
+   "background": {
+       "scripts": ["jquery.min.js", "background.js"],
+       "persistent": false
+   }
 }

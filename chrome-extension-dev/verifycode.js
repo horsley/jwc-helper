@@ -1,4 +1,4 @@
-RECOGNIZE_SERVER = "http://127.0.0.16/vcode.php";
+RECOGNIZE_SERVER = "http://na.jnu.edu.cn/apps/jwc-helper/verifycode";
 VCODE_URL = $('#Table6 tbody').find('tr:eq(9)').find('img').attr('src');
 
 var container = $('#Table6 tbody').find('tr:eq(9)').find('td:eq(0)');
@@ -19,11 +19,21 @@ function recognize() {
 		$.getJSON(RECOGNIZE_SERVER, {pic: canvas.toDataURL()}, function(data){
 			if (data.result) {
 				$('#Table6 tbody').find('tr:eq(9)').find('input').val(data.result);
+                $('input[name="txtFJM"]').css({
+                    //'background-color':"#00BFFF",
+                    'color':"#DA1C25",
+                    'font-size': "14px",
+                    'text-align': "center",
+                    'font-weight': "bold",
+                    'font-family': "Century Gothic"
+                }).attr('title', "不一定能正确识别，请自行修正");
 			} else {
 				if (recognize_count < 10) {
 					refreshVcode()
 					setTimeout(recognize, 100);	
-				}
+				} else {
+                    $('input[name="txtFJM"]').val("无法识别");
+                }
 			}
 		});	
 	} else if (recognize_count < 10) {
