@@ -23,16 +23,12 @@ if ($('#btnReset').length >  0) { //开课列表页面
                     auto_task();
                 }
             } else { //未开始自动刷课
-                var the_table = $('table:last');
-                if (the_table.find('tr').length == 2) {
                     $('#btnReset').before('<button id="autoreg" title="点击开始自动刷新选课">自动选课</button>');
                     $('#autoreg').click(autoRegInit);
-                } else {
-                    $('#btnReset').before('<button id="autoreg" disabled="disabled" title="只能监控单一课程，请通过排课班号搜索出具体一个课程">自动选课</button>')
-                }
-
             }
         });
+    } else {
+        $('#btnReset').before('<button id="autoreg" disabled="disabled" title="只能监控单一课程，请通过排课班号搜索出具体一个课程">自动选课</button>');
     }
 } else if ($('#btnQr').length > 0) {//确认选课页面
     var Pkid = getCoursePKID();
