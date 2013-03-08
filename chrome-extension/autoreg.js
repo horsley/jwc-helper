@@ -79,11 +79,11 @@ function auto_task() {
     } else if (pre_check) {
         autoReg();
     } else {
-        chrome.extension.sendMessage({action: "autoreg_count_inc", pkid: Pkid}, function(a) {
+        chrome.extension.sendMessage({action: "autoreg_count_inc", pkid: Pkid}, function(state) {
             var timer = setTimeout(function(){
                 $('#btnRefresh').get(0).click();
             }, 2000);
-            $('#autoreg').before('容量不足，等待2秒后自动刷新');
+            $('#autoreg').before('容量不足，等待2秒后自动刷新,已刷新 '+ state.count + ' 次');
         });
 
     }

@@ -13,6 +13,7 @@ if ($('input[name="btnExpKcb"]').length !== 0) {
     //schedule_globals.semester_start = new Date(2012, 8, 2); //测试上学期
     //@todo: 这里不科学，要么每个学期更新这里的值，要么得有个计算办法，要么录入校历
     schedule_globals.time_now = getNowTime();
+    schedule_globals.courses = [];
     schedule_globals.vevents = [];
     schedule_globals.course_time = [];
     schedule_globals.ics = "";
@@ -49,12 +50,20 @@ if ($('input[name="btnExpKcb"]').length !== 0) {
                                         parseCourseTime(td_content, j);
                                     } else {
                                         var course_arr;
-                                        if (course_arr = parseKcbTD(td_content, i, j)) for (var n in course_arr) {
-                                            schedule_globals.vevents.push(makeIcsVevent(course_arr[n]));
+                                        if (course_arr = parseKcbTD(td_content, i, j)) for (var n in course_arr) { //一个格子里面同时有单双周的情况
+                                            var courseHid = hashCourseID(course_arr[n]);
+                                            if (typeof schedule_globals.courses[courseHid] == "undefined") {
+                                                schedule_globals.courses[courseHid] = course_arr[n];
+                                            } else {
+                                                schedule_globals.courses[courseHid].time.end = course_arr[n].time.end;
+                                            }
                                         }
                                     }
                                 });
                             });
+                            for (var n in schedule_globals.courses) {
+                                schedule_globals.vevents.push(makeIcsVevent(schedule_globals.courses[n]))
+                            }
                             schedule_globals.ics = makeIcs(schedule_globals.vevents);
                             $('#btnExpIcs').html("生成完成！")
                                 .after('<a download = "课程表.ics" href="'+ makeDownloadUri(schedule_globals.ics) + '">下载日历</a>');
@@ -110,6 +119,11 @@ if ($('input[name="btnExpKcb"]').length !== 0) {
 
         ics += "END:VCALENDAR\r\n";
         return ics;
+    }
+
+    function hashCourseID(course) {//以课程信息（上课时间除外）计算一个hash值来找出同样的连续的课程，便于合并
+        var str = "" + course.name + course.place + course.start_date.toString() + course.interval + course.byday + course.count;
+        return strHash(str);
     }
 
     function parseKcbTD(td, i, j){
@@ -189,8 +203,22 @@ if ($('input[name="btnExpKcb"]').length !== 0) {
 
         return s.join("");
     }
+
     function makeDownloadUri(content) {
         return "data:text/calendar;charset=utf-8," + encodeURI(content);
+    }
+
+    //参考:
+    //http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+    function strHash(str) {
+        var hash = 0, i, char;
+        if (str.length == 0) return hash;
+        for (i = 0; i < str.length; i++) {
+            char = str.charCodeAt(i);
+            hash = ((hash<<5)-hash)+char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return hash;
     }
 }
 

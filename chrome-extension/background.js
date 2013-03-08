@@ -30,6 +30,8 @@ chrome.extension.onMessage.addListener(function(request, sender, callback) {
             break;
         case "autoreg_count_inc":
             background_global.state[id].count++;
+            callback(background_global.state[id]);
+            return;
 
     }
     callback({a: 1})
