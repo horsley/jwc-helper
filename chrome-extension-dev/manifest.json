@@ -4,7 +4,7 @@
    "minimum_chrome_version": "17",
    "name": "暨南大学教务处助手",
    "permissions": [ "*://*/", "tabs"],
-   "version": "1.0.1",
+   "version": "1.1.0",
     "icons":
     {
         "16": "icon16.png",
@@ -30,6 +30,5 @@
    "background": {
        "scripts": ["jquery.min.js", "background.js"],
        "persistent": false
-   },
-   "update_url": "http://horsley.github.com/jwc-helper/update.xml"
+   }
 }

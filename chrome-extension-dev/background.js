@@ -36,3 +36,33 @@ chrome.extension.onMessage.addListener(function(request, sender, callback) {
     }
     callback({a: 1})
 });
+
+function onInstall() {
+    console.log("Extension Installed");
+    alert("感谢安装本插件，下面为你自动打开使用说明的页面，如果你已经看过了可以关掉，如果你还没看过，建议你认真看一下");
+    chrome.tabs.create({
+        url: "https://github.com/horsley/jwc-helper/blob/master/README.md"
+    });
+}
+
+function onUpdate() {
+    console.log("Extension Updated");
+}
+
+function getVersion() {
+    var details = chrome.app.getDetails();
+    return details.version;
+}
+
+// Check if the version has changed.
+var currVersion = getVersion();
+var prevVersion = localStorage['version']
+if (currVersion != prevVersion) {
+    // Check if we just installed this extension.
+    if (typeof prevVersion == 'undefined') {
+        onInstall();
+    } else {
+        onUpdate();
+    }
+    localStorage['version'] = currVersion;
+}
