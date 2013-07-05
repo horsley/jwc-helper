@@ -56,7 +56,11 @@
 
 ##安装
 
+为了方便插件自动更新和维护，从1.1版本开始插件发布在Chrome WebStore官方商店。
 请从chrome商店进行安装，[进入商店](https://chrome.google.com/webstore/detail/%E6%9A%A8%E5%8D%97%E5%A4%A7%E5%AD%A6%E6%95%99%E5%8A%A1%E5%A4%84%E5%8A%A9%E6%89%8B/mjcchjdgibfhdcnioainjmolhghfallo)
+
+**使用旧版本（1.0/1.0.1等从微盘等渠道下载的版本）的同学，你需要先手工删除旧版本，再安装新版本**，新版本开始可以自动更新，打开你的扩展程序设置页面，如果发现如下图的旧版本（主要核对：旧版ID是faf开头的，新版是mjc开头的，并且在右方有提示并非来自Chrome网上应用店），请点击右方的垃圾桶图标进行删除
+![截图](http://horsley.github.com/jwc-helper/screenshots/old_version.jpg "旧版本")
 
 ###更新记录
 + 2013/3/5 版本1.0.0发布
